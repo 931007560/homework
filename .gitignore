@@ -100,3 +100,4 @@ opencart-adminstration-back/target/classes/com/ltl/opencartadminstrationback/po/
 opencart-adminstration-back/target/classes/com/ltl/opencartadminstrationback/service/ProductService.class
 opencart-adminstration-back/target/classes/com/ltl/opencartadminstrationback/service/impl/ProductServiceImpl.class
 opencart-adminstration-back/target/classes/META-INF/opencart-adminstration-back.kotlin_module
+opencart-adminstration-back/.idea/vcs.xml
