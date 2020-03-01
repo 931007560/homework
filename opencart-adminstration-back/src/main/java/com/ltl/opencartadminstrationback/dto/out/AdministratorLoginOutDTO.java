@@ -1,4 +1,4 @@
-package io.cjf.jcartadministrationback.dto.out;
+package com.ltl.opencartadminstrationback.dto.out;
 
 public class AdministratorLoginOutDTO {
     private String token;
