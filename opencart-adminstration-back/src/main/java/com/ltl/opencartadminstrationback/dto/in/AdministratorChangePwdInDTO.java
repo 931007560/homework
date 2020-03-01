@@ -1,4 +1,4 @@
-package io.cjf.jcartadministrationback.dto.in;
+package com.ltl.opencartadminstrationback.dto.in;
 
 public class AdministratorChangePwdInDTO {
     private String originPwd;

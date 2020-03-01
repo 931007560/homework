@@ -1,6 +1,7 @@
 package com.ltl.opencartadminstrationback.dao;
 
 import com.ltl.opencartadminstrationback.po.Administrator;
+import org.apache.ibatis.annotations.Param;
 
 public interface AdministratorMapper {
     int deleteByPrimaryKey(Integer administratorId);
@@ -14,4 +15,8 @@ public interface AdministratorMapper {
     int updateByPrimaryKeySelective(Administrator record);
 
     int updateByPrimaryKey(Administrator record);
+
+    //    custom
+    Administrator selectByUsername(@Param("username") String username);
+
 }
