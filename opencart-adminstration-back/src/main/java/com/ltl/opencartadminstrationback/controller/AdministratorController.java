@@ -1,8 +1,11 @@
 package com.ltl.opencartadminstrationback.controller;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.github.pagehelper.Page;
 import com.ltl.opencartadminstrationback.constant.ClientExceptionConstant;
 import com.ltl.opencartadminstrationback.dto.in.*;
 import com.ltl.opencartadminstrationback.dto.out.*;
+import com.ltl.opencartadminstrationback.enumeration.AdministratorStatus;
 import com.ltl.opencartadminstrationback.exception.ClientException;
 import com.ltl.opencartadminstrationback.po.Administrator;
 import com.ltl.opencartadminstrationback.service.AdministratorService;
@@ -10,7 +13,9 @@ import com.ltl.opencartadminstrationback.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/administrator")
@@ -102,64 +107,114 @@ public class AdministratorController {
     }
     /** @Author ltl
      * @Description //TODO
-     * @Date 16:37 2020/2/25
+     * @Date 18:26 2020/3/2
      * @Param [pageNum]
      * @return com.ltl.opencartadminstrationback.dto.out.PageOutDTO<com.ltl.opencartadminstrationback.dto.out.AdministratorListOutDTO>
      **/
     @GetMapping("/getList")
-    public PageOutDTO<AdministratorListOutDTO> getList(@RequestParam Integer pageNum){
-        return null;
+    public PageOutDTO<AdministratorListOutDTO> getList(@RequestParam(required = false, defaultValue = "1") Integer pageNum){
+        Page<Administrator> page = administratorService.getList(pageNum);
+        List<AdministratorListOutDTO> administratorListOutDTOS = page.stream().map(administrator -> {
+            AdministratorListOutDTO administratorListOutDTO = new AdministratorListOutDTO();
+            administratorListOutDTO.setAdministratorId(administrator.getAdministratorId());
+            administratorListOutDTO.setUsername(administrator.getUsername());
+            administratorListOutDTO.setRealName(administrator.getRealName());
+            administratorListOutDTO.setStatus(administrator.getStatus());
+            administratorListOutDTO.setCreateTimestamp(administrator.getCreateTime().getTime());
+            return administratorListOutDTO;
+        }).collect(Collectors.toList());
+        PageOutDTO<AdministratorListOutDTO> pageOutDTO = new PageOutDTO<>();
+        pageOutDTO.setTotal(page.getTotal());
+        pageOutDTO.setPageSize(page.getPageSize());
+        pageOutDTO.setPageNum(page.getPageNum());
+        pageOutDTO.setList(administratorListOutDTOS);
+
+        return pageOutDTO;
     }
     /** @Author ltl
      * @Description //TODO
-     * @Date 16:37 2020/2/25
+     * @Date 18:26 2020/3/2
      * @Param [administratorId]
      * @return com.ltl.opencartadminstrationback.dto.out.AdministratorShowOutDTO
      **/
     @GetMapping("/getById")
     public AdministratorShowOutDTO getById(@RequestParam Integer administratorId){
-        return null;
+        Administrator administrator = administratorService.getById(administratorId);
+        AdministratorShowOutDTO administratorShowOutDTO = new AdministratorShowOutDTO();
+        administratorShowOutDTO.setAdministratorId(administrator.getAdministratorId());
+        administratorShowOutDTO.setUsername(administrator.getUsername());
+        administratorShowOutDTO.setRealName(administrator.getRealName());
+        administratorShowOutDTO.setEmail(administrator.getEmail());
+        administratorShowOutDTO.setAvatarUrl(administrator.getAvatarUrl());
+        administratorShowOutDTO.setStatus(administrator.getStatus());
+        return administratorShowOutDTO;
     }
+
     /** @Author ltl
      * @Description //TODO
-     * @Date 16:37 2020/2/25
+     * @Date 18:25 2020/3/2
      * @Param [administratorCreateInDTO]
      * @return java.lang.Integer
      **/
     @PostMapping("/create")
     public Integer create(@RequestBody AdministratorCreateInDTO administratorCreateInDTO){
-        return null;
+        Administrator administrator = new Administrator();
+        administrator.setUsername(administratorCreateInDTO.getUsername());
+        administrator.setRealName(administratorCreateInDTO.getRealName());
+        administrator.setEmail(administratorCreateInDTO.getEmail());
+        administrator.setAvatarUrl(administratorCreateInDTO.getAvatarUrl());
+        administrator.setStatus((byte) AdministratorStatus.Enable.ordinal());
+        administrator.setCreateTime(new Date());
+
+        String bcryptHashString = BCrypt.withDefaults().hashToString(12, administratorCreateInDTO.getPassword().toCharArray());
+        administrator.setEncryptedPassword(bcryptHashString);
+        Integer administratorId = administratorService.create(administrator);
+
+        return administratorId;
     }
     /** @Author ltl
      * @Description //TODO
-     * @Date 16:37 2020/2/25
+     * @Date 18:28 2020/3/2
      * @Param [administratorUpdateInDTO]
      * @return void
      **/
     @PostMapping("/update")
     public void update(@RequestBody AdministratorUpdateInDTO administratorUpdateInDTO){
-
+        Administrator administrator = new Administrator();
+        administrator.setAdministratorId(administratorUpdateInDTO.getAdministratorId());
+        administrator.setRealName(administratorUpdateInDTO.getRealName());
+        administrator.setEmail(administratorUpdateInDTO.getEmail());
+        administrator.setAvatarUrl(administratorUpdateInDTO.getAvatarUrl());
+        administrator.setStatus(administratorUpdateInDTO.getStatus());
+        String password = administratorUpdateInDTO.getPassword();
+        if (password != null && !password.isEmpty()){
+            String bcryptHashString = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+            administrator.setEncryptedPassword(bcryptHashString);
+        }
+        administratorService.update(administrator);
     }
 
     /** @Author ltl
      * @Description //TODO
-     * @Date 16:37 2020/2/25
+     * @Date 18:29 2020/3/2
      * @Param [adminstratorId]
      * @return void
      **/
     @PostMapping("/delete")
     public void delete(@RequestBody Integer adminstratorId){
+        administratorService.delete(adminstratorId);
 
     }
 
     /** @Author ltl
      * @Description //TODO
-     * @Date 16:38 2020/2/25
+     * @Date 18:29 2020/3/2
      * @Param [administratorIds]
      * @return void
      **/
     @PostMapping("/batchDelete")
     public void batchDelete(@RequestBody List<Integer> administratorIds){
+        administratorService.batchDelete(administratorIds);
 
     }
 
