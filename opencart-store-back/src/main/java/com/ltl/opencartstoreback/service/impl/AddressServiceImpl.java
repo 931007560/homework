@@ -3,9 +3,6 @@ package com.ltl.opencartstoreback.service.impl;
 import com.ltl.opencartstoreback.dao.AddressMapper;
 import com.ltl.opencartstoreback.po.Address;
 import com.ltl.opencartstoreback.service.AddressService;
-import io.cjf.jcartstoreback.dao.AddressMapper;
-import io.cjf.jcartstoreback.po.Address;
-import io.cjf.jcartstoreback.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +35,10 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void delete(Integer addressId) {
         addressMapper.deleteByPrimaryKey(addressId);
+    }
+
+    @Override
+    public Address getById(Integer addressId) {
+        return null;
     }
 }

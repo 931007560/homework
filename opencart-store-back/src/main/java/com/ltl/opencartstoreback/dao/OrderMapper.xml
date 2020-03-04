@@ -114,4 +114,12 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where order_id = #{orderId,jdbcType=BIGINT}
   </update>
+  <!--  custom-->
+  <select id="selectByCustomerId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from order
+    where customer_id = #{customerId}
+    order by create_time desc
+  </select>
 </mapper>
