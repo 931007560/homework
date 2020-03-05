@@ -18,10 +18,25 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
+    @Autowired
+    private OrderDetailMapper orderDetailMapper;
+
     @Override
     public Page<OrderListOutDTO> search(Integer pageNum) {
         PageHelper.startPage(pageNum, 10);
         Page<OrderListOutDTO> page = orderMapper.search();
         return page;
+    }
+
+    @Override
+    public OrderShowOutDTO getById(Long orderId) {
+        Order order = orderMapper.selectByPrimaryKey(orderId);
+        OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(orderId);
+
+        OrderShowOutDTO orderShowOutDTO = new OrderShowOutDTO();
+        orderShowOutDTO.setOrderId(orderId);
+        orderShowOutDTO.setCustomerId(order.getCustomerId());
+
+        return orderShowOutDTO;
     }
 }
