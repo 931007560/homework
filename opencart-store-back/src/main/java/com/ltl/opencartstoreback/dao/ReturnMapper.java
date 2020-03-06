@@ -1,6 +1,10 @@
 package com.ltl.opencartstoreback.dao;
 
+import com.github.pagehelper.Page;
 import com.ltl.opencartstoreback.po.Return;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ReturnMapper {
     int deleteByPrimaryKey(Integer returnId);
@@ -14,4 +18,8 @@ public interface ReturnMapper {
     int updateByPrimaryKeySelective(Return record);
 
     int updateByPrimaryKey(Return record);
+
+//    custom
+
+    Page<Return> selectPageByCustomerId(@Param("customerId") Integer customerId);
 }
