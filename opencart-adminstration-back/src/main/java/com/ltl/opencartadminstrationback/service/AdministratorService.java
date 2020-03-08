@@ -22,4 +22,6 @@ public interface AdministratorService {
 
     Page<Administrator> getList(Integer pageNum);
 
+    Administrator getByEmail(String email);
+
 }

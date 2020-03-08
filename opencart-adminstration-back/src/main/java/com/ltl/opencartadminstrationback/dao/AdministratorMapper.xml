@@ -149,5 +149,12 @@
     from administrator
   </select>
 
+  <select id="selectByEmail" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from administrator
+    where email = #{email}
+  </select>
+
 
 </mapper>
