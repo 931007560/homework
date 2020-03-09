@@ -2,6 +2,7 @@ package com.ltl.opencartadminstrationback.service;
 
 import com.github.pagehelper.Page;
 import com.ltl.opencartadminstrationback.dto.in.ProductCreateInDTO;
+import com.ltl.opencartadminstrationback.dto.in.ProductSearchInDTO;
 import com.ltl.opencartadminstrationback.dto.in.ProductUpdateInDTO;
 import com.ltl.opencartadminstrationback.dto.out.ProductListOutDTO;
 import com.ltl.opencartadminstrationback.dto.out.ProductShowOutDTO;
@@ -18,7 +19,7 @@ public interface ProductService {
 
     void batchDelete(List<Integer> productIds);
 
-    Page<ProductListOutDTO> search(Integer pageNum);
+    Page<ProductListOutDTO> search(ProductSearchInDTO productSearchInDTO, Integer pageNum);
 
     ProductShowOutDTO getById(Integer productId);
 

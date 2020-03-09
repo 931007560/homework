@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.ltl.opencartadminstrationback.dao.ProductDetailMapper;
 import com.ltl.opencartadminstrationback.dao.ProductMapper;
 import com.ltl.opencartadminstrationback.dto.in.ProductCreateInDTO;
+import com.ltl.opencartadminstrationback.dto.in.ProductSearchInDTO;
 import com.ltl.opencartadminstrationback.dto.in.ProductUpdateInDTO;
 import com.ltl.opencartadminstrationback.dto.out.ProductListOutDTO;
 import com.ltl.opencartadminstrationback.dto.out.ProductShowOutDTO;
@@ -97,9 +98,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductListOutDTO> search(Integer pageNum) {
+    public Page<ProductListOutDTO> search(ProductSearchInDTO productSearchInDTO, Integer pageNum) {
         PageHelper.startPage(pageNum, 10);
-        Page<ProductListOutDTO> page = productMapper.search();
+        Page<ProductListOutDTO> page = productMapper
+                .search(productSearchInDTO.getProductCode(),
+                        productSearchInDTO.getStatus(),
+                        productSearchInDTO.getStockQuantity(),
+                        productSearchInDTO.getPrice(),
+                        productSearchInDTO.getProductName());
         return page;
     }
 
