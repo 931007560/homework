@@ -29,8 +29,8 @@
                     </el-menu>
                 </el-aside>
                 <el-main>
-                    <jc-product-search-page v-if="selectMainPage == '1-1'"></jc-product-search-page>
-                    <jc-customer-search-page v-if="selectMainPage == '2-2'"></jc-customer-search-page>
+                    <opencart-product-search-page v-if="selectMainPage == '1-1'"></opencart-product-search-page>
+                    <opencart-customer-search-page v-if="selectMainPage == '2-2'"></opencart-customer-search-page>
                 </el-main>
             </el-container>
         </el-container>
@@ -43,6 +43,8 @@
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/elementui.js"></script>
 
+    <script src="page/product-search-page.js"></script>
+    <script src="page/customer-search-page.js"></script>
     <script src="viewmodels/menu-navigate.js"></script>
 
 </body>
