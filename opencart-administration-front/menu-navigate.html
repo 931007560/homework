@@ -31,6 +31,8 @@
                 <el-main>
                     <opencart-product-search-page v-if="selectMainPage == '1-1'"></opencart-product-search-page>
                     <opencart-customer-search-page v-if="selectMainPage == '2-2'"></opencart-customer-search-page>
+                    <opencart-order-search-page v-if="selectMainPage == '3-3'"></opencart-order-search-page>
+                    <opencart-return-search-page v-if="selectMainPage == '3-4'"></opencart-return-search-page>
                 </el-main>
             </el-container>
         </el-container>
@@ -45,6 +47,8 @@
 
     <script src="page/product-search-page.js"></script>
     <script src="page/customer-search-page.js"></script>
+    <script src="page/order-search-page.js"></script>
+    <script src="page/return-search-page.js"></script>
     <script src="viewmodels/menu-navigate.js"></script>
 
 </body>
