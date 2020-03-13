@@ -1,4 +1,5 @@
 var app = new Vue({
+    router: router,
     el: '#app',
     data: {
         selectMainPage: '',
@@ -8,7 +9,7 @@ var app = new Vue({
                 index: "1",
                 icon: "el-icon-goods",
                 menuItems: [
-                    { name: "商品列表", index: "1-1" }
+                    { name: "商品列表", index: "1-1", route: '/product/search' }
                 ]
             },
             {
@@ -39,9 +40,11 @@ var app = new Vue({
         ]
     },
     methods: {
-        handleMenuItemSelect(index, indexPath) {
+        /**
+         handleMenuItemSelect(index, indexPath) {
             console.log('menu item selected', index, indexPath);
             this.selectMainPage = index;
         }
+        */
     }
 })

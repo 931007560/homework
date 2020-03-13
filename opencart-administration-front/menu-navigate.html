@@ -16,24 +16,26 @@
             <el-header>OpenCart电商系统</el-header>
             <el-container>
                 <el-aside width="200px">
-                    <el-menu unique-opened background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"
-                        @select="handleMenuItemSelect">
+                    <el-menu unique-opened router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
                         <el-submenu v-for="subMenu in subMenus" :key="subMenu.index" :index="subMenu.index">
                             <template slot="title">
                                 <i :class="subMenu.icon"></i>
                                 <span>{{subMenu.name}}</span>
                             </template>
                             <el-menu-item v-for="menuItem in subMenu.menuItems" :key="menuItem.index"
-                                :index="menuItem.index">{{menuItem.name}}</el-menu-item>
+                                :index="menuItem.index" :route="menuItem.route">{{menuItem.name}}</el-menu-item>
                         </el-submenu>
                     </el-menu>
                 </el-aside>
                 <el-main>
+                    <router-view></router-view>
+                <!--
                     <opencart-product-search-page v-if="selectMainPage == '1-1'"></opencart-product-search-page>
                     <opencart-customer-search-page v-if="selectMainPage == '2-2'"></opencart-customer-search-page>
                     <opencart-order-search-page v-if="selectMainPage == '3-3'"></opencart-order-search-page>
                     <opencart-return-search-page v-if="selectMainPage == '3-4'"></opencart-return-search-page>
                     <opencart-administrator-index-page v-if="selectMainPage == '4-5'"></opencart-administrator-index-page>
+                -->
                 </el-main>
             </el-container>
         </el-container>
@@ -45,12 +47,16 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/elementui.js"></script>
+    <script src="assets/js/vue-router.js"></script>
 
-    <script src="page/product-search-page.js"></script>
+<!--<script src="page/product-search-page.js"></script>
     <script src="page/customer-search-page.js"></script>
     <script src="page/order-search-page.js"></script>
     <script src="page/return-search-page.js"></script>
     <script src="page/administrator-index-page.js"></script>
+-->
+    <script src="route-page/product-search-route-page.js"></script>
+    <script src="route-page/router.js"></script>
     <script src="viewmodels/menu-navigate.js"></script>
 
 </body>
