@@ -17,7 +17,7 @@ var app = new Vue({
                 index: "2",
                 icon: "el-icon-s-custom",
                 menuItems: [
-                    { name: "客户列表", index: "2-2" }
+                    { name: "客户列表", index: "2-2", route: '/customer/search' }
                 ]
             },
             {
