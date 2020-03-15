@@ -1,5 +1,7 @@
 const routes = [
     { path: '/product/search', component: ProductSearchRoutePage },
+    { path: '/product/create', component: ProductCreateRoutePage },
+    
     { path: '/customer/search', component: CustomerSearchRoutePage },
     { path: '/order/search', component: OrderSearchRoutePage },
     { path: '/return/search', component: ReturnSearchRoutePage },
